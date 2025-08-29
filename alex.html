@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kalkulator Ilmiah ALEXANDRINO</title>
+  <style>
+:root {
+      --bg: #f0f4f8;
+      --text: #333;
+      --btn: #0072ff;
+      --btn-hover: #005ecb;
+      --display-bg: #e0e0e0;
+}
+    body.dark {
+      --bg: #1e1e1e;
+      --text: #f0f0f0;
+      --btn: #444;
+      --btn-hover: #666;
+      --display-bg: #333;
+}
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+}
+.calculator {
+      background: var(--bg);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      padding: 20px;
+      max-width: 400px;
+      width: 100%;
+}
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+}
+    #display {
+      width: 100%;
+      height: 60px;
+      font-size: 1.8em;
+      text-align: right;
+      padding: 10px;
+      border-radius: 12px;
+      border: none;
+      background: var(--display-bg);
+      margin-bottom: 15px;
+      color: var(--text);
+}
+.buttons {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+}
+    button {
+      height: 50px;
+      font-size: 1em;
+      border: none;
+      border-radius: 10px;
+      background-color: var(--btn);
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.1s ease;
+}
+    button:hover {
+      background-color: var(--btn-hover);
+}
+    button:active {
+      transform: scale(0.95);
+}
+.toggle-theme {
+      margin-top: 20px;
+      cursor: pointer;
+      font-size: 0.9em;
+      color: var(--btn);
+      text-align: center;
+}
+.history {
+      margin-top: 20px;
+      font-size: 0.9em;
+      background: var(--display-bg);
+      padding: 10px;
+      border-radius: 10px;
+      max-height: 150px;
+      overflow-y: auto;
+}
+.history div {
+      margin-bottom: 5px;
+}
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>Kalkulator Ilmiah ALEXANDRINO</h2>
+    <input type="text" id="display" disabled>
+    <div class="buttons">
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('/')">÷</button>
+      <button onclick="append('Math.PI')">π</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('*')">×</button>
+      <button onclick="append('Math.sqrt(')">√</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('-')">−</button>
+      <button onclick="append('Math.log(')">log</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button onclick="calculate()">=</button>
+      <button onclick="append('+')">+</button>
+      <button onclick="clearDisplay()">C</button>
+
+      <button onclick="append('Math.sin(')">sin</button>
+      <button onclick="append('Math.cos(')">cos</button>
+      <button onclick="append('Math.tan(')">tan</button>
+      <button onclick="append(')')">)</button>
+      <button onclick="append('(')">(</button>
+    </div>
+
+    <div class="toggle-theme" onclick="toggleTheme()">🌙 Ganti Tema</div>
+    <div class="history" id="history"></div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+    const historyBox = document.getElementById('history');
+    let history = [];
+
+    function append(value) {
+      display.value += value;
+}
+
+    function clearDisplay() {
+      display.value = '';
+}
+
+    function calculate() {
+      try {
+        const result = eval(display.value);
+        history.push(display.value + " = " + result);
+        display.value = result;
+        updateHistory();
+} catch {
+        display.value = 'Error';
+}
+}
+
+    function updateHistory() {
+      historyBox.innerHTML = history.slice(-5).map(item => `<div>${item}</div>`).join('');
+}
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+}
+  </script>
+
+</body>
+</html>
+
+
+
+
+
